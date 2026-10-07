@@ -1,0 +1,41 @@
+{
+  "about": "Relevance labels for the bundled fictional snapshot (data/demo_jobs.json). 2 = would apply now (meets most must-haves at the right level), 1 = stretch (real gaps or a level mismatch), 0 = poor fit. Written by the project author: replace or extend them with your own CV and real postings to report your own numbers.",
+  "cvs": {
+    "lina_haddad_reliability": {
+      "demo:cap-bon-packaging:stage-pfe-maintenance-predictive": 2,
+      "demo:atlas-rail-maintenance:reliability-engineer-rolling-stock": 2,
+      "demo:sahelia-food-industries:ingenieur-maintenance": 2,
+      "demo:nefta-solar-operations:om-reliability-analyst-solar": 2,
+      "demo:orbitale-avionics:reliability-safety-engineer-rams": 2,
+      "demo:kerkennah-wind-services:condition-monitoring-engineer": 1,
+      "demo:atlas-rail-maintenance:maintenance-planner": 1,
+      "demo:lumen-grid:data-scientist-predictive-maintenance": 1,
+      "demo:dorsale-mining:senior-maintenance-manager": 0,
+      "demo:tessera-fintech:backend-engineer-python": 0
+    },
+    "alex_moreau_backend": {
+      "demo:tessera-fintech:backend-engineer-python": 2,
+      "demo:cedar-health-ai:python-developer-junior": 2,
+      "demo:blue-mesa-logistics:full-stack-engineer-typescript": 1,
+      "demo:sahara-cloud:software-engineer-platform": 1,
+      "demo:medina-analytics:frontend-developer-react": 1,
+      "demo:sahara-cloud:devops-engineer": 1,
+      "demo:gridline-robotics:ai-engineer-llm": 1,
+      "demo:nordlicht-software:senior-backend-engineer-go": 0,
+      "demo:blue-mesa-logistics:data-engineer": 0,
+      "demo:atlas-rail-maintenance:reliability-engineer-rolling-stock": 0
+    },
+    "sami_gharbi_analyste": {
+      "demo:medina-analytics:junior-data-analyst": 2,
+      "demo:jasmine-retail-group:analyste-bi": 2,
+      "demo:gridline-robotics:maintenance-data-analyst": 2,
+      "demo:lumen-grid:data-scientist-forecasting": 1,
+      "demo:lumen-grid:data-scientist-predictive-maintenance": 1,
+      "demo:tessera-fintech:analytics-engineer": 1,
+      "demo:medina-analytics:data-scientist-nlp": 0,
+      "demo:cedar-health-ai:machine-learning-engineer": 0,
+      "demo:sahara-cloud:devops-engineer": 0,
+      "demo:jasmine-retail-group:sales-manager": 0
+    }
+  }
+}

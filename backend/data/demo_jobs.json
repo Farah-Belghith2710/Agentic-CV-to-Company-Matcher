@@ -1,0 +1,666 @@
+{
+  "note": "Fictional demo snapshot. Every company and posting is invented for testing; URLs point to example.com.",
+  "jobs": [
+    {
+      "id": "demo:atlas-rail-maintenance:reliability-engineer-rolling-stock",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Atlas Rail Maintenance",
+      "title": "Reliability Engineer (Rolling Stock)",
+      "location": "Tunis, Tunisia",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/atlas-rail-maintenance/reliability-engineer-rolling-stock",
+      "posted_at": "2026-09-28",
+      "description": "Atlas Rail Maintenance keeps 120 locomotives and multiple-unit trains running for passenger and freight operators.\n\nWhat you'll do\n• Analyse failure data from our CMMS and calculate MTBF, MTTR and availability per fleet and per subsystem.\n• Run FMEA workshops with depot technicians and update preventive maintenance intervals.\n• Build Weibull models of component lives to support overhaul and spare parts decisions.\n• Lead root cause analysis of repeated failures and follow corrective actions.\n\nRequirements\n• Engineering degree in mechanical, industrial or reliability & maintenance engineering (fresh graduates welcome).\n• Hands-on FMEA / FMECA practice.\n• Weibull analysis or other life data analysis.\n• Working knowledge of a CMMS such as SAP PM or IBM Maximo.\n• Fluent French and good English.\n\nNice to have\n• Reliability-centered maintenance (RCM).\n• Python or Power BI for reliability dashboards.\n• Experience in railway or another heavy industry.",
+      "tags": [
+        "Engineering",
+        "Rail"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:atlas-rail-maintenance:maintenance-planner",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Atlas Rail Maintenance",
+      "title": "Maintenance Planner (Rolling Stock)",
+      "location": "Tunis, Tunisia",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/atlas-rail-maintenance/maintenance-planner",
+      "posted_at": "2026-09-28",
+      "description": "Join the planning office of our main depot.\n\nResponsibilities\n• Prepare weekly maintenance plans and work orders for the locomotive fleet.\n• Coordinate spare parts availability with the warehouse.\n• Track maintenance KPIs and report backlog to the depot manager.\n\nRequirements\n• 1+ years in maintenance planning in an industrial environment.\n• Daily use of a CMMS (SAP PM preferred).\n• Strong Excel skills.\n• French and Arabic.\n\nNice to have\n• Excel VBA macros.\n• Knowledge of preventive maintenance strategies.",
+      "tags": [
+        "Maintenance",
+        "Rail"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:atlas-rail-maintenance:industrial-iot-developer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Atlas Rail Maintenance",
+      "title": "Industrial IoT Developer",
+      "location": "Tunis, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/atlas-rail-maintenance/industrial-iot-developer",
+      "posted_at": "2026-09-28",
+      "description": "We are fitting our trains with sensors to move to condition-based maintenance.\n\nYour mission\n• Build data collection services that read sensor data from on-board gateways over MQTT.\n• Store and expose time series to the reliability team.\n• Package services with Docker and monitor them.\n\nWhat we're looking for\n• Python development experience (2 years or more).\n• MQTT and IoT data pipelines.\n• Docker.\n• Interest in condition monitoring and maintenance.\n\nBonus\n• Grafana dashboards.\n• Industrial protocols such as Modbus or OPC UA.",
+      "tags": [
+        "Software",
+        "IoT"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:kerkennah-wind-services:condition-monitoring-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Kerkennah Wind Services",
+      "title": "Condition Monitoring Engineer (Wind Turbines)",
+      "location": "Sfax, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/kerkennah-wind-services/condition-monitoring-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Kerkennah Wind Services operates and maintains 300 MW of onshore wind farms.\n\nThe role\n• Monitor drivetrain health of 140 turbines from vibration and SCADA data.\n• Diagnose gearbox and bearing defects and recommend interventions before failure.\n• Plan oil analysis and thermography campaigns with the field teams.\n\nYour profile\n• 2+ years of vibration analysis on rotating equipment (gearboxes, bearings, generators).\n• Solid understanding of condition monitoring and predictive maintenance programs.\n• Python for data analysis.\n• Professional English.\n\nNice to have\n• ISO 18436 vibration analyst certification (category II).\n• Oil analysis and thermography.\n• SCADA data experience.",
+      "tags": [
+        "Energy",
+        "Maintenance"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:kerkennah-wind-services:automation-engineer-scada",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Kerkennah Wind Services",
+      "title": "Automation Engineer (SCADA)",
+      "location": "Sfax, Tunisia",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/kerkennah-wind-services/automation-engineer-scada",
+      "posted_at": "2026-09-28",
+      "description": "Responsibilities\n• Maintain PLC programs and SCADA screens for our substations and turbines.\n• Integrate new devices over Modbus and OPC UA.\n\nRequirements\n• 3+ years of PLC programming (Siemens TIA Portal).\n• SCADA / HMI development.\n• Industrial protocols: Modbus, Profinet, OPC UA.\n• Electrical schematics reading.\n\nNice to have\n• Python scripting.\n• Experience in renewable energy.",
+      "tags": [
+        "Automation",
+        "Energy"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:sahelia-food-industries:ingenieur-maintenance",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Sahelia Food Industries",
+      "title": "Ingénieur Maintenance (H/F)",
+      "location": "Sousse, Tunisie",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/sahelia-food-industries/ingenieur-maintenance",
+      "posted_at": "2026-09-28",
+      "description": "Sahelia Food Industries, groupe agroalimentaire (3 usines), recrute un ingénieur maintenance pour son site de Sousse.\n\nVos missions\n• Élaborer et suivre le plan de maintenance préventive des lignes de production.\n• Piloter la GMAO et analyser l'historique des pannes.\n• Animer des analyses AMDEC et des analyses des causes racines.\n• Suivre les indicateurs de maintenance (MTBF, MTTR, TRS).\n• Encadrer une équipe de 8 techniciens.\n\nProfil recherché\n• Diplôme d'ingénieur en génie mécanique, électromécanique ou industriel.\n• 1 à 3 ans d'expérience en maintenance industrielle (stages acceptés pour les jeunes diplômés).\n• Maîtrise d'une GMAO.\n• Pratique de l'AMDEC.\n\nUn plus\n• TPM et Lean manufacturing.\n• Anglais technique.",
+      "tags": [
+        "Maintenance",
+        "Agroalimentaire"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:cap-bon-packaging:stage-pfe-maintenance-predictive",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Cap Bon Packaging",
+      "title": "Stage PFE - Maintenance prédictive",
+      "location": "Nabeul, Tunisie",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/cap-bon-packaging/stage-pfe-maintenance-predictive",
+      "posted_at": "2026-09-28",
+      "description": "Cap Bon Packaging fabrique des emballages carton pour l'export. Nous proposons un stage de fin d'études (PFE) de 6 mois à partir de février 2027.\n\nMissions\n• Collecter et analyser les données vibratoires de nos presses et onduleuses.\n• Développer un modèle de détection d'anomalies pour anticiper les pannes.\n• Restituer les alertes dans un tableau de bord Power BI pour l'équipe maintenance.\n\nProfil recherché\n• Étudiant(e) en dernière année d'école d'ingénieurs (génie industriel, maintenance ou data).\n• Python (pandas, scikit-learn).\n• Notions d'analyse vibratoire.\n\nUn plus\n• Power BI.\n• Connaissance d'une GMAO.",
+      "tags": [
+        "Stage",
+        "PFE"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:medlake-chemicals:asset-integrity-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Medlake Chemicals",
+      "title": "Asset Integrity Engineer",
+      "location": "Bizerte, Tunisia",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/medlake-chemicals/asset-integrity-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Medlake Chemicals produces specialty chemicals for the Mediterranean market.\n\nResponsibilities\n• Develop risk-based inspection (RBI) plans for pressure equipment and piping.\n• Coordinate non-destructive testing campaigns and evaluate corrosion data.\n• Maintain the asset register and integrity KPIs.\n\nRequirements\n• 3+ years in asset integrity or inspection engineering in oil & gas or chemicals.\n• Knowledge of API 580/581 risk-based inspection.\n• Non-destructive testing methods (UT, MT, PT).\n• Corrosion mechanisms.\n\nPreferred\n• Python or Power BI for integrity data.\n• Asset management standards (ISO 55000).",
+      "tags": [
+        "Integrity",
+        "Chemicals"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:medlake-chemicals:electrical-maintenance-technician",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Medlake Chemicals",
+      "title": "Electrical Maintenance Technician",
+      "location": "Bizerte, Tunisia",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/medlake-chemicals/electrical-maintenance-technician",
+      "posted_at": "2026-09-28",
+      "description": "Responsibilities\n• Troubleshoot motors, variable frequency drives and switchgear.\n• Carry out preventive maintenance on electrical equipment in ATEX zones.\n\nRequirements\n• Vocational diploma or BTS in electrical engineering.\n• 3+ years of electrical maintenance in a process plant.\n• Siemens TIA Portal for PLC diagnostics.\n• Lockout/tagout procedures and ATEX awareness.",
+      "tags": [
+        "Maintenance",
+        "Electrical"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:orbitale-avionics:reliability-safety-engineer-rams",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Orbitale Avionics",
+      "title": "Reliability & Safety Engineer (RAMS)",
+      "location": "Toulouse, France",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/orbitale-avionics/reliability-safety-engineer-rams",
+      "posted_at": "2026-09-28",
+      "description": "Orbitale Avionics designs flight-control electronics for regional aircraft.\n\nYour missions\n• Perform reliability predictions, FMECA and fault tree analysis for new equipment.\n• Build reliability block diagrams and allocate availability targets.\n• Support safety assessments with the certification team.\n\nYour profile\n• Engineering degree with a specialisation in reliability, dependability or RAMS.\n• FMECA and fault tree analysis.\n• Reliability block diagrams or Markov models.\n• Fluent French (our working language) and professional English.\n\nNice to have\n• Functional safety standards (IEC 61508, ARP4761).\n• Python for reliability calculations.\n• First experience in aerospace or rail (internships count).",
+      "tags": [
+        "Engineering",
+        "Aerospace"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:orbitale-avionics:mechanical-design-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Orbitale Avionics",
+      "title": "Mechanical Design Engineer",
+      "location": "Toulouse, France",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/orbitale-avionics/mechanical-design-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• Master's degree in mechanical engineering.\n• 3+ years of mechanical design in CATIA V5.\n• GD&T and tolerance stack-up analysis.\n• Finite element analysis (ANSYS).\n\nNice to have\n• SolidWorks.\n• Aerospace materials and standards.",
+      "tags": [
+        "Engineering",
+        "Aerospace"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:nefta-solar-operations:om-reliability-analyst-solar",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Nefta Solar Operations",
+      "title": "O&M Reliability Analyst (Solar PV)",
+      "location": "Tunis, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/nefta-solar-operations/om-reliability-analyst-solar",
+      "posted_at": "2026-09-28",
+      "description": "Nefta Solar Operations runs operations and maintenance for 12 solar plants in North Africa.\n\nWhat you'll do\n• Track availability and performance ratio of each plant and explain losses.\n• Run failure analysis on inverters and trackers and propose corrective actions.\n• Maintain reliability dashboards for asset managers.\n\nRequirements\n• Degree in engineering (energy, electrical, industrial or maintenance).\n• Reliability engineering basics: failure modes, MTBF, availability.\n• Root cause analysis methods.\n• Python or R for data analysis.\n• Power BI.\n\nNice to have\n• SCADA data from solar inverters.\n• Weibull analysis.",
+      "tags": [
+        "Energy",
+        "Reliability"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:dorsale-mining:senior-maintenance-manager",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Dorsale Mining",
+      "title": "Senior Maintenance Manager",
+      "location": "Gafsa, Tunisia",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/dorsale-mining/senior-maintenance-manager",
+      "posted_at": "2026-09-28",
+      "description": "Dorsale Mining operates phosphate processing plants.\n\nResponsibilities\n• Lead a maintenance department of 45 technicians and 4 supervisors.\n• Own the maintenance budget and long-term asset strategy.\n\nRequirements\n• 10+ years in industrial maintenance, including 5 years managing teams.\n• Proven deployment of RCM and TPM programs.\n• Asset management (ISO 55000).\n• Fluent French and Arabic.",
+      "tags": [
+        "Maintenance",
+        "Mining"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:halfa-composites:process-engineer-lean",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Halfa Composites",
+      "title": "Process Engineer (Lean Manufacturing)",
+      "location": "Monastir, Tunisia",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/halfa-composites/process-engineer-lean",
+      "posted_at": "2026-09-28",
+      "description": "Halfa Composites manufactures composite parts for automotive and aerospace customers.\n\nMissions\n• Run Kaizen events and value stream mapping on two production lines.\n• Lead root cause analysis on quality defects (8D, Ishikawa).\n• Monitor OEE and scrap rate.\n\nRequirements\n• 2+ years in process or industrial engineering.\n• Lean manufacturing and Six Sigma (Green Belt).\n• Statistical process control (SPC).\n• French and English.\n\nNice to have\n• Minitab.\n• IATF 16949 environment.",
+      "tags": [
+        "Manufacturing"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:lumen-grid:reliability-engineer-grid-assets",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Lumen Grid",
+      "title": "Reliability Engineer, Grid Assets",
+      "location": "Paris, France",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/lumen-grid/reliability-engineer-grid-assets",
+      "posted_at": "2026-09-28",
+      "description": "Lumen Grid operates electricity distribution networks.\n\nThe role\n• Model the ageing of power transformers, cables and switchgear with survival analysis and Weibull models.\n• Prioritise asset replacements with risk and cost models.\n• Contribute to our asset digital twin.\n\nRequirements\n• 3+ years in reliability engineering for electrical or industrial assets.\n• Weibull analysis and survival analysis.\n• Python or R.\n• FMEA.\n• Fluent French.\n\nNice to have\n• Digital twin projects.\n• Knowledge of power transformers and switchgear.",
+      "tags": [
+        "Energy",
+        "Reliability"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:lumen-grid:data-scientist-predictive-maintenance",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Lumen Grid",
+      "title": "Data Scientist, Predictive Maintenance",
+      "location": "Remote (Europe)",
+      "workplace": "remote",
+      "url": "https://jobs.example.com/lumen-grid/data-scientist-predictive-maintenance",
+      "posted_at": "2026-09-28",
+      "description": "Help us predict failures across 40,000 grid assets.\n\nWhat you'll do\n• Build machine learning models that predict asset failures from sensor and inspection data.\n• Detect anomalies in time series from substations.\n• Estimate remaining useful life to plan interventions.\n• Work with reliability engineers to turn models into maintenance decisions.\n\nRequirements\n• 2+ years building machine learning models in Python (scikit-learn, pandas).\n• Time series analysis and anomaly detection.\n• SQL.\n• Ability to explain models to engineers.\n\nNice to have\n• PyTorch.\n• MLOps practices (MLflow, model monitoring).\n• Azure.\n• Reliability engineering or maintenance background.",
+      "tags": [
+        "Data Science",
+        "Energy"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:lumen-grid:data-scientist-forecasting",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Lumen Grid",
+      "title": "Data Scientist, Demand Forecasting",
+      "location": "Paris, France",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/lumen-grid/data-scientist-forecasting",
+      "posted_at": "2026-09-28",
+      "description": "Responsibilities\n• Forecast electricity demand at substation level, from hours to years ahead.\n• Communicate uncertainty to planning teams.\n\nRequirements\n• Time series forecasting (ARIMA, gradient boosting or similar).\n• Python and SQL.\n• Statistics.\n• 2+ years of experience.\n\nNice to have\n• Azure ML.\n• Energy sector.",
+      "tags": [
+        "Data Science",
+        "Energy"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:gridline-robotics:maintenance-data-analyst",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Gridline Robotics",
+      "title": "Maintenance Data Analyst",
+      "location": "Berlin, Germany",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/gridline-robotics/maintenance-data-analyst",
+      "posted_at": "2026-09-28",
+      "description": "Gridline Robotics builds warehouse robots and runs a fleet of 2,000 units for customers.\n\nWhat you'll do\n• Turn CMMS and robot telemetry data into maintenance KPIs (MTBF, MTTR, OEE).\n• Build Power BI dashboards for service managers.\n• Support the reliability team with failure data analysis.\n\nRequirements\n• 1+ years in a data analyst role.\n• SQL and Excel.\n• Power BI.\n• Understanding of maintenance KPIs.\n• Professional English.\n\nNice to have\n• German.\n• Python.",
+      "tags": [
+        "Data",
+        "Robotics"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:gridline-robotics:ai-engineer-llm",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Gridline Robotics",
+      "title": "AI Engineer (LLM applications)",
+      "location": "Berlin, Germany",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/gridline-robotics/ai-engineer-llm",
+      "posted_at": "2026-09-28",
+      "description": "Build assistants that help our technicians diagnose robot faults.\n\nRequirements\n• 2+ years of Python software development.\n• LLMs and retrieval-augmented generation (RAG).\n• LangChain or LangGraph.\n• Vector databases.\n• FastAPI.\n\nNice to have\n• Evaluation of LLM systems.\n• Docker.",
+      "tags": [
+        "AI"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:medina-analytics:junior-data-analyst",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Medina Analytics",
+      "title": "Junior Data Analyst",
+      "location": "Tunis, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/medina-analytics/junior-data-analyst",
+      "posted_at": "2026-09-28",
+      "description": "Medina Analytics is a consulting firm helping retailers and manufacturers use their data.\n\nMissions\n• Clean and analyse client data sets.\n• Build dashboards and present findings to clients.\n\nRequirements\n• SQL.\n• Excel.\n• Power BI or Tableau.\n• Statistics basics.\n• French and English.\n\nNice to have\n• Python (pandas).",
+      "tags": [
+        "Data",
+        "Consulting"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:medina-analytics:data-scientist-nlp",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Medina Analytics",
+      "title": "Data Scientist (NLP)",
+      "location": "Tunis, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/medina-analytics/data-scientist-nlp",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 3+ years of experience in data science.\n• Python and PyTorch.\n• NLP: text classification, named entity recognition, transformer models.\n• Arabic and French text processing.\n\nNice to have\n• LLMs and RAG.\n• MLOps.",
+      "tags": [
+        "Data Science"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:cedar-health-ai:machine-learning-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Cedar Health AI",
+      "title": "Machine Learning Engineer",
+      "location": "Montreal, Canada",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/cedar-health-ai/machine-learning-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Cedar Health AI builds clinical decision support tools.\n\nRequirements\n• 3+ years deploying machine learning models to production.\n• Python and PyTorch.\n• MLOps: Docker, Kubernetes, CI/CD.\n• AWS.\n\nNice to have\n• LLMs.\n• French.",
+      "tags": [
+        "ML"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:cedar-health-ai:computer-vision-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Cedar Health AI",
+      "title": "Computer Vision Engineer",
+      "location": "Montreal, Canada",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/cedar-health-ai/computer-vision-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 4+ years in computer vision.\n• Deep learning with PyTorch.\n• OpenCV and C++.\n\nNice to have\n• Medical imaging.\n• CUDA optimisation.",
+      "tags": [
+        "ML"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:tessera-fintech:analytics-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Tessera Fintech",
+      "title": "Analytics Engineer",
+      "location": "Paris, France",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/tessera-fintech/analytics-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 2+ years in analytics engineering or data engineering.\n• SQL and dbt.\n• Snowflake or BigQuery.\n• Data modeling (star schema).\n• Python.\n\nNice to have\n• Airflow.\n• Looker.",
+      "tags": [
+        "Data"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:blue-mesa-logistics:data-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Blue Mesa Logistics",
+      "title": "Data Engineer",
+      "location": "Remote (Worldwide)",
+      "workplace": "remote",
+      "url": "https://jobs.example.com/blue-mesa-logistics/data-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 3+ years as a data engineer.\n• Python and SQL.\n• Spark and Airflow.\n• Kafka.\n• AWS.\n\nNice to have\n• Terraform.\n• dbt.",
+      "tags": [
+        "Data"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:jasmine-retail-group:analyste-bi",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Jasmine Retail Group",
+      "title": "Analyste BI (Power BI)",
+      "location": "Sfax, Tunisie",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/jasmine-retail-group/analyste-bi",
+      "posted_at": "2026-09-28",
+      "description": "Jasmine Retail Group (85 magasins) renforce son équipe data.\n\nVos missions\n• Concevoir et maintenir les tableaux de bord Power BI de la direction commerciale.\n• Modéliser les données de ventes et de stocks.\n• Automatiser les rapports récurrents.\n\nProfil recherché\n• 2 ans d'expérience minimum en business intelligence.\n• Power BI (DAX, Power Query).\n• SQL Server.\n• Excel avancé.\n• Modélisation de données.\n• Français et anglais.\n\nUn plus\n• Python.\n• Azure.",
+      "tags": [
+        "Data",
+        "Retail"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:kairos-mobility:senior-data-scientist",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Kairos Mobility",
+      "title": "Senior Data Scientist",
+      "location": "Remote (US only)",
+      "workplace": "remote",
+      "url": "https://jobs.example.com/kairos-mobility/senior-data-scientist",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 6+ years of experience in data science.\n• Python and SQL.\n• A/B testing and experimentation.\n• Causal inference.\n\nNice to have\n• Ride-hailing or marketplace experience.",
+      "tags": [
+        "Data Science"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:nordlicht-software:werkstudent-data-analytics",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Nordlicht Software",
+      "title": "Werkstudent Data Analytics (m/w/d)",
+      "location": "Berlin, Deutschland",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/nordlicht-software/werkstudent-data-analytics",
+      "posted_at": "2026-09-28",
+      "description": "Deine Aufgaben\n• Du analysierst Nutzungsdaten unserer Software und baust Dashboards.\n• Du unterstützt das Team bei Ad-hoc-Analysen.\n\nDas bringst du mit\n• Laufendes Studium der Informatik, Statistik oder Wirtschaftsinformatik.\n• Gute Kenntnisse in SQL und Python.\n• Erste Erfahrung mit Tableau oder Power BI.\n• Sehr gute Deutschkenntnisse und gute Englischkenntnisse.",
+      "tags": [
+        "Data"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:tessera-fintech:backend-engineer-python",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Tessera Fintech",
+      "title": "Backend Engineer (Python)",
+      "location": "Paris, France",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/tessera-fintech/backend-engineer-python",
+      "posted_at": "2026-09-28",
+      "description": "Tessera builds payment reconciliation software for European SMEs.\n\nWhat you'll do\n• Design and build REST APIs for our reconciliation engine.\n• Improve performance and reliability of our PostgreSQL-backed services.\n• Ship with tests and code review.\n\nRequirements\n• 3+ years of backend development in Python.\n• FastAPI or Django.\n• PostgreSQL.\n• REST APIs.\n• Docker.\n• Automated testing (pytest).\n\nNice to have\n• Kafka.\n• AWS.\n• Kubernetes.",
+      "tags": [
+        "Software"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:tessera-fintech:qa-automation-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Tessera Fintech",
+      "title": "QA Automation Engineer",
+      "location": "Paris, France",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/tessera-fintech/qa-automation-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 2+ years in test automation.\n• Cypress or Selenium.\n• JavaScript.\n• CI/CD pipelines.\n\nNice to have\n• pytest.",
+      "tags": [
+        "Software",
+        "QA"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:blue-mesa-logistics:full-stack-engineer-typescript",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Blue Mesa Logistics",
+      "title": "Full-Stack Engineer (TypeScript)",
+      "location": "Remote (Europe)",
+      "workplace": "remote",
+      "url": "https://jobs.example.com/blue-mesa-logistics/full-stack-engineer-typescript",
+      "posted_at": "2026-09-28",
+      "description": "Blue Mesa Logistics builds software for freight forwarders.\n\nRequirements\n• 3+ years of full-stack development.\n• TypeScript, React and Node.js.\n• PostgreSQL.\n• GraphQL.\n\nNice to have\n• Next.js.\n• AWS.",
+      "tags": [
+        "Software"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:nordlicht-software:senior-backend-engineer-go",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Nordlicht Software",
+      "title": "Senior Backend Engineer (Go)",
+      "location": "Berlin, Germany",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/nordlicht-software/senior-backend-engineer-go",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 5+ years of backend engineering.\n• Go.\n• Kubernetes.\n• PostgreSQL.\n• gRPC.\n\nNice to have\n• German.",
+      "tags": [
+        "Software"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:sahara-cloud:devops-engineer",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Sahara Cloud",
+      "title": "DevOps Engineer",
+      "location": "Tunis, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/sahara-cloud/devops-engineer",
+      "posted_at": "2026-09-28",
+      "description": "Sahara Cloud hosts applications for North African companies.\n\nRequirements\n• 2+ years in DevOps or SRE roles.\n• Linux administration.\n• Docker and Kubernetes.\n• Terraform.\n• CI/CD with GitLab CI.\n• AWS or Azure.\n\nNice to have\n• Prometheus and Grafana.",
+      "tags": [
+        "Software",
+        "DevOps"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:sahara-cloud:software-engineer-platform",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Sahara Cloud",
+      "title": "Software Engineer, Platform",
+      "location": "Tunis, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/sahara-cloud/software-engineer-platform",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 3+ years of software engineering.\n• Python or Go.\n• Kubernetes.\n• AWS.\n• Terraform.\n\nNice to have\n• Observability tooling (Prometheus).",
+      "tags": [
+        "Software"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:medina-analytics:frontend-developer-react",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Medina Analytics",
+      "title": "Frontend Developer (React)",
+      "location": "Tunis, Tunisia",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/medina-analytics/frontend-developer-react",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• React and TypeScript.\n• HTML/CSS.\n• REST APIs.\n• Jest.\n\nNice to have\n• Next.js.\n• Tailwind CSS.",
+      "tags": [
+        "Software"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:cedar-health-ai:python-developer-junior",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Cedar Health AI",
+      "title": "Python Developer (Junior)",
+      "location": "Montreal, Canada",
+      "workplace": "hybrid",
+      "url": "https://jobs.example.com/cedar-health-ai/python-developer-junior",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• Python.\n• Django or Flask.\n• SQL.\n• Git.\n• Fluent French and English.\n\nNice to have\n• Docker.\n• pytest.",
+      "tags": [
+        "Software"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:jasmine-retail-group:sales-manager",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Jasmine Retail Group",
+      "title": "Responsable Commercial Région Sud",
+      "location": "Sfax, Tunisie",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/jasmine-retail-group/sales-manager",
+      "posted_at": "2026-09-28",
+      "description": "Missions\n• Développer le chiffre d'affaires des magasins de la région.\n• Encadrer les chefs de magasin.\n\nProfil recherché\n• 5 ans d'expérience en vente.\n• Permis B.",
+      "tags": [
+        "Sales"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:blue-mesa-logistics:customer-support-specialist",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Blue Mesa Logistics",
+      "title": "Customer Support Specialist",
+      "location": "Remote (Europe)",
+      "workplace": "remote",
+      "url": "https://jobs.example.com/blue-mesa-logistics/customer-support-specialist",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 1+ years in customer support.\n• Fluent English.\n• Zendesk.",
+      "tags": [
+        "Support"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:kairos-mobility:product-manager",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Kairos Mobility",
+      "title": "Product Manager",
+      "location": "Remote (US only)",
+      "workplace": "remote",
+      "url": "https://jobs.example.com/kairos-mobility/product-manager",
+      "posted_at": "2026-09-28",
+      "description": "Requirements\n• 4+ years of product management.\n• Agile and Scrum.\n• Jira.\n• SQL for product analytics.",
+      "tags": [
+        "Product"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    },
+    {
+      "id": "demo:halfa-composites:comptable",
+      "source": "demo",
+      "source_label": "Demo snapshot (fictional)",
+      "company": "Halfa Composites",
+      "title": "Comptable (H/F)",
+      "location": "Monastir, Tunisie",
+      "workplace": "onsite",
+      "url": "https://jobs.example.com/halfa-composites/comptable",
+      "posted_at": "2026-09-28",
+      "description": "Profil recherché\n• Licence en comptabilité.\n• 2 ans d'expérience.\n• Maîtrise de Sage.",
+      "tags": [
+        "Finance"
+      ],
+      "attribution": "Demo snapshot: fictional company and posting"
+    }
+  ]
+}

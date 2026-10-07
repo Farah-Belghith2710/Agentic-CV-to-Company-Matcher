@@ -1,0 +1,34 @@
+Sami Gharbi
+Analyste de données
+Sfax, Tunisie | sami.gharbi@example.com | +216 98 765 432
+
+PROFIL
+Analyste de données avec 2 ans d'expérience dans l'industrie textile et la distribution. Je transforme des données de production et de ventes en tableaux de bord et en analyses statistiques utiles aux décideurs.
+
+EXPÉRIENCE PROFESSIONNELLE
+Analyste de données | Thyna Textile Group, Sfax
+Sept 2024 - aujourd'hui
+• Conception de tableaux de bord Power BI (DAX, Power Query) pour suivre le TRS de 3 lignes de production.
+• Automatisation des rapports hebdomadaires avec Python (pandas) et SQL Server, soit 6 heures gagnées par semaine.
+• Analyse des arrêts machines et des séries temporelles de production pour identifier les principales causes de pertes.
+
+Stagiaire analyste BI | Olivia Retail, Sousse
+Fév 2024 - Juil 2024
+• Nettoyage et modélisation des données de ventes de 45 magasins, puis création d'un modèle de prévision des ventes avec scikit-learn.
+• Réalisation de tests statistiques pour mesurer l'impact des promotions sur les ventes.
+
+PROJETS
+Détection d'anomalies sur données capteurs | Projet de fin d'études
+• Détection d'anomalies sur des données vibratoires avec Isolation Forest et visualisation des alertes dans un tableau de bord.
+
+FORMATION
+Master professionnel en Data Science | Institut Supérieur d'Informatique de Thyna | 2022 - 2024
+Licence en Statistique et Informatique décisionnelle | 2019 - 2022
+
+COMPÉTENCES
+Langages : Python, SQL, R (notions)
+Outils : Power BI, Excel avancé, Tableau, SQL Server, Git
+Méthodes : statistiques, séries temporelles, apprentissage automatique (scikit-learn), visualisation de données
+
+LANGUES
+Arabe (langue maternelle), Français (courant), Anglais (B2)

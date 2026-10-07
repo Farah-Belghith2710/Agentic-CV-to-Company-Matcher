@@ -1,0 +1,37 @@
+Alex Moreau
+Backend Software Engineer
+Lyon, France | alex.moreau@example.com | +33 6 12 34 56 78 | github.com/alexmoreau-example
+
+PROFILE
+Backend engineer with 4 years of experience building Python APIs and data-heavy web applications. Comfortable across the stack with TypeScript and React, and in production with Docker, AWS and CI/CD.
+
+EXPERIENCE
+Software Engineer | Rivermark Logistics, Lyon
+Mar 2024 - Present
+• Designed and shipped REST APIs in FastAPI and Postgres serving 2M requests per day for route planning.
+• Cut p95 latency from 900 ms to 220 ms by adding Redis caching and rewriting slow SQL queries.
+• Built a React and TypeScript admin console used by 60 dispatchers, with Jest and pytest suites running in GitHub Actions.
+• Containerized 6 services with Docker and deployed them on AWS (ECS, RDS, S3).
+
+Junior Developer | Pixelforge Studio, Lyon
+Sep 2022 - Feb 2024
+• Maintained Django back-office applications and wrote Python import scripts for client product catalogs.
+• Introduced code reviews and Git branching conventions for a team of 5 developers.
+
+PROJECTS
+Open-source contribution | Async job queue
+• Added retries with exponential backoff and Prometheus metrics to a small open-source Python job queue, covered by pytest.
+
+EDUCATION
+MSc in Computer Science | Rhone Valley University | 2020 - 2022
+BSc in Computer Science | Rhone Valley University | 2017 - 2020
+
+SKILLS
+Languages: Python, TypeScript, JavaScript, SQL, Bash
+Backend: FastAPI, Django, REST APIs, PostgreSQL, Redis
+Frontend: React, HTML/CSS
+DevOps: Docker, GitHub Actions, AWS, Linux, Git
+Testing: pytest, Jest
+
+LANGUAGES
+French (native), English (fluent, C1)

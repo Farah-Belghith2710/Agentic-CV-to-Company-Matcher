@@ -1,0 +1,43 @@
+Lina Haddad
+Reliability & Maintenance Engineering Student
+Tunis, Tunisia | lina.haddad@example.com | +216 20 123 456 | linkedin.com/in/lina-haddad-example
+
+SUMMARY
+Final-year engineering student in reliability and maintenance with two internships in rail and cement plants. I combine classical reliability methods (AMDEC, fault trees, Weibull) with Python data analysis to help maintenance teams move from reactive to predictive work. Looking for a final-year internship (PFE) or a graduate role in reliability or maintenance engineering.
+
+EXPERIENCE
+Reliability Engineering Intern | Medjerda Rail Services, Tunis
+Jul 2026 - Sep 2026
+• Built a Weibull analysis of 6 years of traction-motor failure records to estimate MTBF and propose preventive replacement intervals.
+• Ran an AMDEC on the bogie maintenance process with 5 technicians and ranked 38 failure modes by criticality.
+• Developed a Python dashboard (pandas, Plotly) tracking MTBF, MTTR and availability for 24 locomotives.
+
+Maintenance Intern | Kerkouane Cement Works, Enfidha
+Jul 2025 - Aug 2025
+• Collected vibration data on kiln fans and helped the condition monitoring team flag 3 bearing defects before failure.
+• Updated preventive maintenance plans in the GMAO (SAP PM) for 40 rotating equipment items.
+• Wrote root cause analysis reports (5 Whys, Ishikawa) for recurring conveyor belt stoppages.
+
+PROJECTS
+Remaining useful life prediction | NASA C-MAPSS turbofan dataset
+• Trained random forest and XGBoost models in sklearn to predict remaining useful life, reaching an RMSE of 18 cycles on the test set.
+• Engineered rolling-window features from 21 sensor channels and tuned the models with cross-validation.
+
+Hydraulic press reliability study | Course project
+• Modeled the safety system of a hydraulic press with a fault tree and reliability block diagrams in MATLAB and computed system availability.
+
+EDUCATION
+Engineering degree, Industrial Engineering (Reliability & Maintenance) | Ecole Polytechnique de Dougga | 2024 - 2027 (expected)
+Preparatory classes, Mathematics and Physics | 2022 - 2024
+
+SKILLS
+Reliability: AMDEC/FMECA, fault tree analysis, reliability block diagrams, Weibull analysis, MTBF/MTTR, RCM basics
+Maintenance: preventive maintenance, condition monitoring, vibration analysis (basics), TPM, GMAO (SAP PM)
+Data: Python (pandas, NumPy, scikit-learn, XGBoost), SQL, Power BI, Excel
+Tools: MATLAB, SolidWorks, Git
+
+LANGUAGES
+Arabic (native), French (fluent), English (B2)
+
+CERTIFICATIONS
+Lean Six Sigma Yellow Belt (2025)
