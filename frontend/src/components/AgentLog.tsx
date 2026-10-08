@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { RunEvent } from "../types";
 
 const TAG: Record<string, string> = {
@@ -18,30 +18,32 @@ const TAG: Record<string, string> = {
   pipeline: "error",
 };
 
+/** Everything the agent wrote down, folded away until you want it. */
 export function AgentLog({ events, startTs }: { events: RunEvent[]; startTs: number | null }) {
   const box = useRef<HTMLDivElement>(null);
   const pinned = useRef(true);
+  const [open, setOpen] = useState(false);
+  const logs = events.filter((e) => e.type === "log");
 
   useEffect(() => {
     const el = box.current;
-    if (el && pinned.current) el.scrollTop = el.scrollHeight;
-  }, [events.length]);
+    if (el && open && pinned.current) el.scrollTop = el.scrollHeight;
+  }, [logs.length, open]);
 
-  const logs = events.filter((e) => e.type === "log");
+  if (!logs.length) return null;
   return (
-    <section className="log" aria-label="Agent log">
-      <h2 className="panel-title">What the agent is doing</h2>
+    <details className="log" open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>
+      <summary>The agent's log ({logs.length} lines)</summary>
       <div
         className="log-lines"
         ref={box}
         role="log"
-        aria-live="polite"
+        tabIndex={0}
         onScroll={(e) => {
           const el = e.currentTarget;
           pinned.current = el.scrollHeight - el.scrollTop - el.clientHeight < 24;
         }}
       >
-        {logs.length === 0 && <p className="log-empty">Steps appear here as the agent works.</p>}
         {logs.map((e) => (
           <div key={e.seq} className={`log-line lvl-${e.level ?? "info"}`}>
             <span className="log-time">{startTs ? `+${(e.ts - startTs).toFixed(1)}s` : ""}</span>
@@ -50,6 +52,6 @@ export function AgentLog({ events, startTs }: { events: RunEvent[]; startTs: num
           </div>
         ))}
       </div>
-    </section>
+    </details>
   );
 }

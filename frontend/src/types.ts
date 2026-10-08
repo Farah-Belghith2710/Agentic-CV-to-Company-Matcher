@@ -9,13 +9,6 @@ export interface Health {
   snapshot: { file: string; jobs: number };
 }
 
-export interface Sample {
-  id: string;
-  name: string;
-  headline: string;
-  language: string;
-}
-
 export interface EvidenceUnit {
   id: string;
   section: string;

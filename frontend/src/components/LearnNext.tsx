@@ -5,44 +5,50 @@ export function LearnNext({ items, total }: { items: LearnItem[]; total: number 
   const maxGain = Math.max(...items.map((i) => i.fit_gain), 0.01);
   return (
     <section className="learn" aria-label="Skills to learn next">
-      <h2 className="panel-title">Learn next</h2>
-      <p className="muted">
-        Skills your top {total} jobs ask for that your CV does not show yet. A job is unlocked when the skill is its only missing
-        must-have.
+      <h2 className="section-title">What to learn next</h2>
+      <p className="section-lede">
+        Skills that your top {total} jobs ask for and your CV does not show yet. “Unlocks” counts the jobs where that skill is the only
+        must-have you are missing.
       </p>
-      <table className="learn-table">
-        <thead>
-          <tr>
-            <th scope="col">Skill</th>
-            <th scope="col" className="num">
-              Jobs asking
-            </th>
-            <th scope="col" className="num">
-              As must-have
-            </th>
-            <th scope="col" className="num">
-              Unlocks
-            </th>
-            <th scope="col">Average fit gain</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((i) => (
-            <tr key={i.skill}>
-              <th scope="row">{i.skill}</th>
-              <td className="num">{i.jobs_requiring}</td>
-              <td className="num">{i.must_count}</td>
-              <td className={`num${i.unlocks ? " strong" : ""}`}>{i.unlocks}</td>
-              <td>
-                <span className="gain">
-                  <span className="gain-bar" style={{ width: `${Math.max(4, (i.fit_gain / maxGain) * 100)}%` }} />
-                  <span className="gain-value">+{Math.round(i.fit_gain * 100)} pts</span>
-                </span>
-              </td>
+      <div className="table-wrap">
+        <table className="learn-table">
+          <thead>
+            <tr>
+              <th scope="col">Skill</th>
+              <th scope="col" className="num">
+                Jobs asking
+              </th>
+              <th scope="col" className="num">
+                As a must-have
+              </th>
+              <th scope="col" className="num">
+                Unlocks
+              </th>
+              <th scope="col" className="gain-col">
+                Average fit gain
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {items.map((i) => (
+              <tr key={i.skill}>
+                <th scope="row">{i.skill}</th>
+                <td className="num">{i.jobs_requiring}</td>
+                <td className="num">{i.must_count}</td>
+                <td className={`num${i.unlocks ? " unlocks" : " muted"}`}>{i.unlocks}</td>
+                <td className="gain-col">
+                  <span className="gain">
+                    <span className="gain-track">
+                      <span className="gain-bar" style={{ width: `${Math.max(6, (i.fit_gain / maxGain) * 100)}%` }} />
+                    </span>
+                    <span className="gain-value">+{Math.round(i.fit_gain * 100)} points</span>
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }

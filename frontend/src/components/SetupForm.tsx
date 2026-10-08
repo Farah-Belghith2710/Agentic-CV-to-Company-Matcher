@@ -1,11 +1,9 @@
-import { useRef, useState } from "react";
-import { api } from "../api";
-import type { Health, Sample, Source } from "../types";
+import { useState, type ReactNode } from "react";
+import type { Health, Source } from "../types";
 
 export interface StartInput {
   file: File | null;
   cvText: string;
-  sampleId: string;
   source: Source;
   companies: string;
   keywords: string;
@@ -15,29 +13,31 @@ export interface StartInput {
   useLlm: boolean;
 }
 
-type CvMode = "upload" | "sample" | "paste";
+type CvMode = "upload" | "paste";
+
+const MIN_PASTE = 200;
 
 const SOURCES: { id: Source; title: string; detail: (h: Health | null) => string }[] = [
-  { id: "demo", title: "Saved snapshot", detail: (h) => `${h?.snapshot.jobs ?? "40"} postings, works offline` },
-  { id: "companies", title: "Company career boards", detail: () => "Live postings from Greenhouse, Lever or Ashby" },
-  { id: "keywords", title: "Remote job boards", detail: () => "Remotive and Arbeitnow, searched with your titles" },
-  { id: "paste", title: "Paste postings", detail: () => "Postings you copied from anywhere" },
+  { id: "demo", title: "Saved postings", detail: (h) => `${h?.snapshot.jobs ?? 40} postings that come with the app; works offline` },
+  { id: "companies", title: "Company career pages", detail: () => "Live openings from companies that use Greenhouse, Lever or Ashby" },
+  { id: "keywords", title: "Remote job boards", detail: () => "Live openings from Remotive and Arbeitnow" },
+  { id: "paste", title: "Postings you paste", detail: () => "Copied from LinkedIn, a company site, anywhere" },
 ];
 
-export function SetupForm({
-  health,
-  samples,
-  busy,
-  onStart,
-}: {
-  health: Health | null;
-  samples: Sample[];
-  busy: boolean;
-  onStart: (input: StartInput) => void;
-}) {
-  const [cvMode, setCvMode] = useState<CvMode>("sample");
+function Step({ no, title, children }: { no: number; title: string; children: ReactNode }) {
+  return (
+    <fieldset className="step">
+      <legend>
+        <span className="step-no">{no}.</span> {title}
+      </legend>
+      {children}
+    </fieldset>
+  );
+}
+
+export function SetupForm({ health, busy, onStart }: { health: Health | null; busy: boolean; onStart: (input: StartInput) => void }) {
+  const [cvMode, setCvMode] = useState<CvMode>("upload");
   const [file, setFile] = useState<File | null>(null);
-  const [sampleId, setSampleId] = useState("lina");
   const [cvText, setCvText] = useState("");
   const [source, setSource] = useState<Source>("demo");
   const [companies, setCompanies] = useState("");
@@ -47,18 +47,17 @@ export function SetupForm({
   const [remoteOk, setRemoteOk] = useState(true);
   const [useLlm, setUseLlm] = useState(true);
   const [dragging, setDragging] = useState(false);
-  const fileInput = useRef<HTMLInputElement>(null);
 
-  const cvReady = (cvMode === "upload" && file) || (cvMode === "sample" && sampleId) || (cvMode === "paste" && cvText.trim().length > 200);
+  const pastedChars = cvText.trim().length;
+  const cvReady = (cvMode === "upload" && !!file) || (cvMode === "paste" && pastedChars > MIN_PASTE);
   const jobsReady =
-    source === "demo" || source === "keywords" || (source === "companies" && companies.trim()) || (source === "paste" && pasted.trim().length > 80);
+    source === "demo" || source === "keywords" || (source === "companies" && !!companies.trim()) || (source === "paste" && pasted.trim().length > 80);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     onStart({
       file: cvMode === "upload" ? file : null,
       cvText: cvMode === "paste" ? cvText : "",
-      sampleId: cvMode === "sample" ? sampleId : "",
       source,
       companies,
       keywords,
@@ -71,100 +70,74 @@ export function SetupForm({
 
   return (
     <form className="setup" onSubmit={submit}>
-      <fieldset className="step">
-        <legend>
-          <span className="step-no">1</span> Your CV
-        </legend>
-        <div className="tabs" role="tablist" aria-label="How to provide your CV">
-          {(["upload", "sample", "paste"] as CvMode[]).map((m) => (
+      <Step no={1} title="Your CV">
+        <div className="tabs" role="tablist" aria-label="How to give your CV">
+          {(["upload", "paste"] as CvMode[]).map((m) => (
             <button key={m} type="button" role="tab" aria-selected={cvMode === m} className="tab" onClick={() => setCvMode(m)}>
-              {m === "upload" ? "Upload PDF" : m === "sample" ? "Use a sample" : "Paste text"}
+              {m === "upload" ? "Upload a file" : "Paste the text"}
             </button>
           ))}
         </div>
-        {cvMode === "upload" && (
-          <div
-            className={`dropzone${dragging ? " is-dragging" : ""}${file ? " has-file" : ""}`}
-            onDragOver={(e) => {
-              e.preventDefault();
-              setDragging(true);
-            }}
-            onDragLeave={() => setDragging(false)}
-            onDrop={(e) => {
-              e.preventDefault();
-              setDragging(false);
-              const f = e.dataTransfer.files?.[0];
-              if (f) setFile(f);
-            }}
-          >
-            <input
-              ref={fileInput}
-              type="file"
-              accept=".pdf,.txt,.md,application/pdf,text/plain"
-              className="visually-hidden"
-              id="cv-file"
-              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-            />
-            {file ? (
-              <p>
-                <strong>{file.name}</strong> <span className="muted">({Math.round(file.size / 1024)} KB)</span>{" "}
-                <button type="button" className="link" onClick={() => setFile(null)}>
-                  Remove
-                </button>
-              </p>
-            ) : (
-              <p>
-                Drop your CV here (PDF or .txt), or{" "}
-                <label htmlFor="cv-file" className="link">
-                  choose a file
-                </label>
-              </p>
-            )}
-          </div>
-        )}
-        {cvMode === "sample" && (
-          <div className="samples">
-            {samples.map((s) => (
-              <label key={s.id} className={`sample${sampleId === s.id ? " is-picked" : ""}`}>
-                <input type="radio" name="sample" value={s.id} checked={sampleId === s.id} onChange={() => setSampleId(s.id)} />
-                <span>
-                  <span className="sample-name">{s.name}</span>
-                  <span className="muted">
-                    {s.headline}, in {s.language}
-                  </span>
-                </span>
-                <a className="link sample-pdf" href={api.samplePdfUrl(s.id)} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
-                  PDF
-                </a>
-              </label>
-            ))}
-            <p className="hint">Fictional people, made up to try the app.</p>
-          </div>
-        )}
-        {cvMode === "paste" && (
-          <textarea
-            className="input"
-            rows={7}
-            value={cvText}
-            onChange={(e) => setCvText(e.target.value)}
-            placeholder="Paste the full text of your CV"
-            aria-label="CV text"
-          />
-        )}
-        <p className="hint">Your email, phone, links and name are removed before anything else happens. Nothing is stored on disk.</p>
-      </fieldset>
 
-      <fieldset className="step">
-        <legend>
-          <span className="step-no">2</span> Jobs to search
-        </legend>
-        <div className="sources">
+        {cvMode === "upload" &&
+          (file ? (
+            <div className="file">
+              <span className="file-name">{file.name}</span>
+              <span className="file-size">{Math.max(1, Math.round(file.size / 1024))} KB</span>
+              <button type="button" className="text-button" onClick={() => setFile(null)}>
+                Remove
+              </button>
+            </div>
+          ) : (
+            <label
+              className={`dropzone${dragging ? " is-dragging" : ""}`}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragging(true);
+              }}
+              onDragLeave={() => setDragging(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setDragging(false);
+                const f = e.dataTransfer.files?.[0];
+                if (f) setFile(f);
+              }}
+            >
+              <input type="file" accept=".pdf,.txt,.md,application/pdf,text/plain" className="visually-hidden" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+              <span className="drop-main">
+                Drop your CV here, or <span className="drop-link">choose a file</span>
+              </span>
+              <span className="drop-sub">PDF or plain text</span>
+            </label>
+          ))}
+
+        {cvMode === "paste" && (
+          <>
+            <textarea
+              className="input"
+              rows={7}
+              value={cvText}
+              onChange={(e) => setCvText(e.target.value)}
+              placeholder="Paste the full text of your CV"
+              aria-label="CV text"
+              aria-describedby="paste-count"
+            />
+            <p className="hint" id="paste-count">
+              {pastedChars > MIN_PASTE ? `${pastedChars} characters.` : `Paste all of it: at least ${MIN_PASTE} characters (${pastedChars} so far).`}
+            </p>
+          </>
+        )}
+        <p className="hint">Your name, email, phone number and links are taken out before anything else happens. Nothing is saved to disk.</p>
+      </Step>
+
+      <Step no={2} title="Where to look">
+        <div className="sources" role="radiogroup" aria-label="Where to look for jobs">
           {SOURCES.map((s) => (
             <label key={s.id} className={`source${source === s.id ? " is-picked" : ""}`}>
               <input type="radio" name="source" value={s.id} checked={source === s.id} onChange={() => setSource(s.id)} />
               <span>
                 <span className="source-title">{s.title}</span>
-                <span className="muted">{s.detail(health)}</span>
+                <span className="source-detail">{s.detail(health)}</span>
               </span>
             </label>
           ))}
@@ -172,20 +145,15 @@ export function SetupForm({
         {source === "companies" && (
           <label className="field">
             <span>Companies</span>
-            <input
-              className="input"
-              value={companies}
-              onChange={(e) => setCompanies(e.target.value)}
-              placeholder="stripe, notion, jobs.lever.co/palantir"
-            />
-            <span className="hint">Board names or careers-page URLs, separated by commas.</span>
+            <input className="input" value={companies} onChange={(e) => setCompanies(e.target.value)} placeholder="stripe, notion, jobs.lever.co/palantir" />
+            <span className="hint">Board names or careers-page links, separated by commas.</span>
           </label>
         )}
         {source === "keywords" && (
           <label className="field">
             <span>Extra keywords (optional)</span>
             <input className="input" value={keywords} onChange={(e) => setKeywords(e.target.value)} placeholder="predictive maintenance" />
-            <span className="hint">Remotive allows 2 requests a minute, so results are cached for 6 hours.</span>
+            <span className="hint">Remotive allows two searches a minute, so results are kept for six hours.</span>
           </label>
         )}
         {source === "paste" && (
@@ -198,40 +166,38 @@ export function SetupForm({
               onChange={(e) => setPasted(e.target.value)}
               placeholder={"Title: Reliability Engineer\nCompany: ...\n\nRequirements\n- FMEA\n---\nNext posting..."}
             />
+            <span className="hint">Put a line with only --- between two postings.</span>
           </label>
         )}
-      </fieldset>
+      </Step>
 
-      <fieldset className="step">
-        <legend>
-          <span className="step-no">3</span> Where you can work
-        </legend>
+      <Step no={3} title="Where you can work">
         <label className="field">
-          <span>Location</span>
+          <span>City or country</span>
           <input className="input" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Tunis, Tunisia" />
         </label>
         <label className="check">
-          <input type="checkbox" checked={remoteOk} onChange={(e) => setRemoteOk(e.target.checked)} /> Remote roles are fine
+          <input type="checkbox" checked={remoteOk} onChange={(e) => setRemoteOk(e.target.checked)} /> Remote jobs are fine too
         </label>
-      </fieldset>
+      </Step>
 
-      <div className="engine">
-        {health?.llm.configured ? (
-          <label className="check">
-            <input type="checkbox" checked={useLlm} onChange={(e) => setUseLlm(e.target.checked)} /> Use {health.llm.model} for
-            judging and rewriting
-          </label>
-        ) : (
-          <p className="hint">
-            Offline mode: rule-based matching and terminology-only tailoring. Add an LLM key in <code>backend/.env</code> for full
-            rewrites.
-          </p>
-        )}
+      {health?.llm.configured ? (
+        <label className="check engine">
+          <input type="checkbox" checked={useLlm} onChange={(e) => setUseLlm(e.target.checked)} /> Use {health.llm.model} to judge and rewrite
+        </label>
+      ) : (
+        <p className="hint engine">
+          Running offline: matching by rules, and rewrites that only borrow the posting's words. Add an LLM key in <code>backend/.env</code> for
+          real rewrites.
+        </p>
+      )}
+
+      <div className="cta-dock">
+        <button className="cta" type="submit" disabled={busy || !cvReady || !jobsReady}>
+          {busy ? "Working..." : "Find and rank jobs"}
+        </button>
+        {!busy && !cvReady && <p className="hint cta-hint">Add your CV first.</p>}
       </div>
-
-      <button className="primary" type="submit" disabled={busy || !cvReady || !jobsReady}>
-        {busy ? "Running..." : "Find and rank jobs"}
-      </button>
     </form>
   );
 }

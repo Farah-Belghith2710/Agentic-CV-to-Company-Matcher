@@ -1,4 +1,4 @@
-import type { Health, RunEvent, RunView, Sample, Source } from "./types";
+import type { Health, RunEvent, RunView, Source } from "./types";
 
 async function asJson<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -16,15 +16,12 @@ async function asJson<T>(res: Response): Promise<T> {
 
 export const api = {
   health: () => fetch("/api/health").then((r) => asJson<Health>(r)),
-  samples: () => fetch("/api/samples").then((r) => asJson<Sample[]>(r)),
   run: (id: string) => fetch(`/api/runs/${id}`).then((r) => asJson<RunView>(r)),
   reportUrl: (id: string) => `/api/runs/${id}/report.md`,
-  samplePdfUrl: (id: string) => `/api/samples/${id}.pdf`,
 
   start: (input: {
     file: File | null;
     cvText: string;
-    sampleId: string;
     source: Source;
     companies: string;
     keywords: string;
@@ -35,7 +32,6 @@ export const api = {
   }) => {
     const form = new FormData();
     if (input.file) form.append("cv_file", input.file);
-    else if (input.sampleId) form.append("sample_id", input.sampleId);
     else form.append("cv_text", input.cvText);
     form.append("source", input.source);
     form.append("companies", input.companies);

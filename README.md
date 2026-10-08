@@ -49,8 +49,15 @@ Your browser opens **http://localhost:8000**. Keep the launcher's window open wh
 and close it to stop. The first time, it creates the Python environment in `backend/.venv` and
 installs the packages, which takes a few minutes. After that it starts in a few seconds.
 
-Then choose the sample CV *Lina Haddad* and the source *Saved snapshot*, and click
-**Find and rank jobs**. When the ranking appears, tick one to three jobs and click **Tailor my CV**.
+Then upload your CV (PDF or plain text, or paste its text), keep the source *Saved snapshot*, and
+click **Find and rank jobs**. When the ranking appears, pick one to three jobs and click
+**Tailor my CV**.
+
+**Reading the results.** Every requirement is marked like a printed posting you went over with a
+highlighter: green means a line of your CV shows it, yellow means only partly, pink means nothing in
+your CV shows it. Must-haves get a full highlight, nice-to-haves an underline, and the margin gets a
+tick, a wavy line or a cross. Open a job to see each requirement next to the line of your CV behind
+it.
 
 ### Development mode (two terminals, live reload)
 
@@ -337,7 +344,7 @@ cv-matcher/
 │   │   └── sources/              Greenhouse, Lever, Ashby, Remotive, Arbeitnow, snapshot, paste
 │   ├── data/
 │   │   ├── demo_jobs.json        40 fictional postings
-│   │   └── sample_cvs/           3 fictional CVs (.txt and .pdf)
+│   │   └── sample_cvs/           3 fictional CVs (.txt and .pdf), used by the tests
 │   ├── eval/                     labels, ranking eval, fabrication check
 │   ├── scripts/                  save_snapshot.py, warm_up.py
 │   └── tests/                    pytest suite
@@ -376,12 +383,12 @@ All settings live in `backend/.env` (see `.env.example` for comments).
 
 | Problem | Fix |
 |---|---|
-| The app says the API is not answering | Start the backend (terminal 1). Its terminal must show `Uvicorn running on http://127.0.0.1:8000`. |
+| The app says it cannot reach its server | Run `start.bat` again, or start the backend (terminal 1). Its window must show `Uvicorn running on http://127.0.0.1:8000`. |
 | `uvicorn` or `pip` is not recognized | The virtual environment is not active. Run `.venv\Scripts\Activate.ps1` (Windows) or `source .venv/bin/activate`. |
 | `npm` is not recognized | Install Node.js LTS and open a new terminal. |
 | Port 8000 or 5173 already in use | Stop the other program, or start uvicorn with `--port 8001` and change the port in `frontend/vite.config.ts`. |
 | The first run waits on "Loading the multilingual embedding model" | It is downloading ~220 MB once. On a slow or blocked connection, set `EMBEDDINGS=tfidf`. |
-| "Almost no text could be extracted" | The PDF is scanned. Use **Paste text**. |
+| "Almost no text could be extracted" | The PDF is scanned. Use **Paste the text**. |
 | "No open jobs found for 'x'" | The company does not use Greenhouse, Lever or Ashby under that name. Check the careers URL, or paste the postings. |
 | Remotive answers HTTP 429 | It allows 2 requests a minute. Wait a minute; answers are then cached for 6 hours. |
 | LLM: key rejected / model not found / rate limit | Check `LLM_API_KEY` and `LLM_MODEL`. For rate limits, set `LLM_MAX_RPM`. Failed LLM steps fall back to rules, and the log says so. |
@@ -395,7 +402,7 @@ All settings live in `backend/.env` (see `.env.example` for comments).
 1. Upload a CV and show the redaction line in the log.
 2. Show the agent widening its search (the "search widened 2×" badge).
 3. Show the ranked jobs.
-4. Open one job and hover a balloon to show the CV line behind a requirement.
+4. Open one job and read down the marked-up requirements, each with the line of your CV behind it.
 5. Show the **Learn next** table.
 6. Tick two jobs and tailor.
 7. Open a rejected draft to show the verifier's reason, then download the report.

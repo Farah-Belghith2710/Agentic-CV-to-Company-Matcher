@@ -4,19 +4,18 @@ import { AgentLog } from "./components/AgentLog";
 import { InspectionSheet } from "./components/InspectionSheet";
 import { JobList } from "./components/JobList";
 import { LearnNext } from "./components/LearnNext";
-import { HarveyBall } from "./components/marks";
+import { Logo } from "./components/marks";
 import { PipelineRail, type StageState } from "./components/PipelineRail";
 import { ProfileSummary } from "./components/ProfileSummary";
 import { SetupForm, type StartInput } from "./components/SetupForm";
 import { TailorPanel } from "./components/TailorPanel";
-import type { Health, RunEvent, RunStatus, RunView, Sample } from "./types";
+import type { Health, RunEvent, RunStatus, RunView } from "./types";
 import { useNarrow } from "./useNarrow";
 
-const REFRESH_ON_DONE = new Set(["parse_cv", "score_rank", "verify", "report", "pick_jobs"]);
+const REFRESH_ON_DONE = new Set(["parse_cv", "triage", "score_rank", "verify", "report", "pick_jobs"]);
 
 export default function App() {
   const [health, setHealth] = useState<Health | null>(null);
-  const [samples, setSamples] = useState<Sample[]>([]);
   const [backendDown, setBackendDown] = useState(false);
   const [runId, setRunId] = useState<string | null>(null);
   const [view, setView] = useState<RunView | null>(null);
@@ -29,13 +28,12 @@ export default function App() {
   const narrow = useNarrow();
   const closeStream = useRef<() => void>(() => {});
   const pollTimer = useRef<number | null>(null);
+  const sheetRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    Promise.all([api.health(), api.samples()])
-      .then(([h, s]) => {
-        setHealth(h);
-        setSamples(s);
-      })
+    api
+      .health()
+      .then(setHealth)
       .catch(() => setBackendDown(true));
     return () => closeStream.current();
   }, []);
@@ -106,6 +104,8 @@ export default function App() {
     setActiveJob(null);
     setPicked([]);
     setStatus("running");
+    // When the form sits above the results (small screens), bring the results into view.
+    if (window.matchMedia?.("(max-width: 900px)").matches) sheetRef.current?.scrollIntoView({ block: "start" });
     try {
       const { run_id } = await api.start(input);
       setRunId(run_id);
@@ -137,42 +137,34 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="titleblock">
-        <div className="brand">
-          <h1>CV Matcher</h1>
-          <p>Ranks real job postings against your CV, shows the line of your CV behind every verdict, and tailors bullets without inventing anything.</p>
-        </div>
-        <dl className="titleblock-cells">
-          <div>
-            <dt>Engine</dt>
-            <dd>{health ? (health.llm.configured ? health.llm.model : "Offline rules") : "..."}</dd>
-          </div>
-          <div>
-            <dt>Snapshot</dt>
-            <dd>{health ? `${health.snapshot.jobs} postings` : "..."}</dd>
-          </div>
-          <div>
-            <dt>Run</dt>
-            <dd>{runId ?? "none yet"}</dd>
-          </div>
-        </dl>
+      <header className="topbar">
+        <p className="wordmark">
+          <Logo />
+          CV Matcher
+        </p>
+        <p className="topbar-status">
+          {health
+            ? `${health.llm.configured ? `Using ${health.llm.model}` : "Offline mode"}, ${health.snapshot.jobs} saved postings`
+            : backendDown
+              ? "Server not running"
+              : "Connecting..."}
+        </p>
       </header>
 
-      {backendDown && (
-        <p className="banner" role="alert">
-          The API is not answering on port 8000. Start it with <code>uvicorn app.main:app --reload --port 8000</code> in the backend
-          folder, then reload this page.
-        </p>
-      )}
-
-      <main className="workspace">
-        <aside className="side">
-          <SetupForm health={health} samples={samples} busy={busy} onStart={start} />
-          <AgentLog events={events} startTs={startTs} />
+      <div className="workspace">
+        <aside className="desk" aria-label="Your search">
+          <SetupForm health={health} busy={busy} onStart={start} />
         </aside>
 
-        <section className="board" aria-live="polite">
-          <PipelineRail stages={stages} status={status} />
+        <main className="sheet" ref={sheetRef} aria-live="polite">
+          {backendDown && (
+            <p className="banner" role="alert">
+              The app cannot reach its server. Start it with <code>start.bat</code> (or <code>uvicorn app.main:app --port 8000</code> in the
+              backend folder), then reload this page.
+            </p>
+          )}
+
+          <PipelineRail stages={stages} status={status} view={view} events={events} compact={ranked.length > 0} />
 
           {error && (
             <div className="error" role="alert">
@@ -180,36 +172,14 @@ export default function App() {
             </div>
           )}
 
-          {!view?.profile && status === "idle" && (
-            <div className="empty">
-              <h2>See how your CV holds up against each requirement</h2>
-              <p>
-                Pick a CV and a job source, then run. The agent searches, keeps the relevant postings, splits each one into
-                must-haves and nice-to-haves, and checks every requirement against the lines of your CV.
-              </p>
-              <ul className="legend" aria-label="How to read the results">
-                <li>
-                  <HarveyBall verdict="met" /> A line of your CV shows it
-                </li>
-                <li>
-                  <HarveyBall verdict="partial" /> Related or weaker evidence
-                </li>
-                <li>
-                  <HarveyBall verdict="missing" /> Nothing in your CV shows it
-                </li>
-                <li>
-                  <span className="balloon balloon-static">3</span> The CV line that proves it (hover to read)
-                </li>
-              </ul>
-            </div>
-          )}
-
           {view?.profile && <ProfileSummary view={view} />}
 
           {ranked.length > 0 && (
-            <div className="results">
+            <section className="results" aria-label="Ranked jobs">
               <div className="results-list">
-                <h2 className="panel-title">Ranked by fit</h2>
+                <h2 className="section-title">
+                  Best matches <span className="section-count">{ranked.length} jobs, best first</span>
+                </h2>
                 <JobList
                   ranked={ranked}
                   activeId={openJob?.job_id ?? null}
@@ -221,18 +191,24 @@ export default function App() {
                   renderDetail={narrow && openJob ? () => <InspectionSheet job={openJob} units={units} /> : undefined}
                 />
               </div>
-              {!narrow && openJob && <InspectionSheet job={openJob} units={units} />}
-            </div>
+              {!narrow && openJob && (
+                <div className="results-detail">
+                  <InspectionSheet job={openJob} units={units} />
+                </div>
+              )}
+            </section>
           )}
 
           {awaiting && (
             <div className="pickbar" role="region" aria-label="Choose jobs to tailor for">
               <p>
                 {picked.length === 0
-                  ? "Tick up to 3 jobs to tailor your CV bullets for."
-                  : `${picked.length} job${picked.length > 1 ? "s" : ""} picked.`}
+                  ? "Tick up to 3 jobs, and the agent rewrites your CV bullets for them."
+                  : picked.length === 3
+                    ? "3 jobs ticked. That is the most at once."
+                    : `${picked.length} job${picked.length > 1 ? "s" : ""} ticked. You can add ${3 - picked.length} more.`}
               </p>
-              <button className="primary" type="button" disabled={!picked.length} onClick={tailor}>
+              <button className="cta" type="button" disabled={!picked.length} onClick={tailor}>
                 Tailor my CV for {picked.length || "these"} job{picked.length === 1 ? "" : "s"}
               </button>
             </div>
@@ -242,15 +218,17 @@ export default function App() {
           {view && <TailorPanel bullets={view.tailored} ranked={ranked} llm={view.mode.llm} />}
 
           {view?.has_report && runId && (
-            <div className="report">
-              <a className="primary" href={api.reportUrl(runId)} download>
-                Download the report (Markdown)
+            <p className="report">
+              <a className="button-secondary" href={api.reportUrl(runId)} download>
+                Download the report
               </a>
-              <span className="muted">Rankings, evidence, skills to learn and the tailored bullets, with sources.</span>
-            </div>
+              <span>A Markdown file with the ranking, the evidence, what to learn and your tailored bullets.</span>
+            </p>
           )}
-        </section>
-      </main>
+
+          <AgentLog events={events} startTs={startTs} />
+        </main>
+      </div>
     </div>
   );
 }
