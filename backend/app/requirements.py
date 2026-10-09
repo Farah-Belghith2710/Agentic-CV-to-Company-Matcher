@@ -36,6 +36,13 @@ SENIORITY_PATTERNS = [
 ]
 
 
+def seniority_text(job) -> str:
+    """The title, plus LinkedIn's own "Internship" label when the title does not say it."""
+    if job.source == "linkedin" and "Internship" in (job.tags or []):
+        return f"{job.title} internship"
+    return job.title
+
+
 def title_seniority(title: str, min_years: float | None) -> str:
     f = fold(title)
     for level, pat in SENIORITY_PATTERNS:
@@ -103,7 +110,7 @@ def extract_heuristic(job: Job) -> JobRequirements:
     min_years = max((r.min_years for r in reqs if r.min_years is not None and r.kind == "must"), default=None)
     return JobRequirements(
         requirements=reqs,
-        seniority=title_seniority(job.title, min_years),
+        seniority=title_seniority(seniority_text(job), min_years),
         min_years=min_years,
         languages=sorted({l for r in reqs for l in r.languages}),
         workplace=job.workplace,
@@ -167,7 +174,7 @@ def extract_llm(job: Job, llm: LLMClient) -> JobRequirements:
     min_years = out.min_years if out.min_years is not None else max(
         (r.min_years for r in reqs if r.min_years is not None and r.kind == "must"), default=None
     )
-    seniority = out.seniority if out.seniority in {"intern", "junior", "mid", "senior", "lead"} else title_seniority(job.title, min_years)
+    seniority = out.seniority if out.seniority in {"intern", "junior", "mid", "senior", "lead"} else title_seniority(seniority_text(job), min_years)
     workplace = out.workplace if out.workplace in {"remote", "hybrid", "onsite"} else job.workplace
     return JobRequirements(
         requirements=reqs,

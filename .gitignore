@@ -6,6 +6,7 @@ backend/.venv/
 backend/.env
 backend/.cache/
 backend/eval/fabrication_review.csv
+backend/data/saved_postings.json
 
 # Node
 frontend/node_modules/

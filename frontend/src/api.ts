@@ -1,4 +1,5 @@
-import type { Health, RunEvent, RunView, Source } from "./types";
+import type { Capture } from "./bookmarklet";
+import type { Health, RunEvent, RunView, SavedJob, Source } from "./types";
 
 async function asJson<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -18,6 +19,17 @@ export const api = {
   health: () => fetch("/api/health").then((r) => asJson<Health>(r)),
   run: (id: string) => fetch(`/api/runs/${id}`).then((r) => asJson<RunView>(r)),
   reportUrl: (id: string) => `/api/runs/${id}/report.md`,
+
+  /** Jobs you saved from LinkedIn with the Send to CV Matcher button. */
+  saved: {
+    list: () => fetch("/api/saved").then((r) => asJson<{ count: number; jobs: SavedJob[] }>(r)),
+    add: (capture: Capture) =>
+      fetch("/api/saved", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(capture) }).then((r) =>
+        asJson<{ created: boolean; count: number; job: SavedJob }>(r),
+      ),
+    remove: (id: string) => fetch(`/api/saved/${encodeURIComponent(id)}`, { method: "DELETE" }).then((r) => asJson<{ count: number; jobs: SavedJob[] }>(r)),
+    clear: () => fetch("/api/saved", { method: "DELETE" }).then((r) => asJson<{ count: number; jobs: SavedJob[] }>(r)),
+  },
 
   start: (input: {
     file: File | null;

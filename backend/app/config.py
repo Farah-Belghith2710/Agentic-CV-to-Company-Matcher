@@ -57,6 +57,7 @@ class Settings:
     cache_dir: Path
     cache_enabled: bool
     snapshot_path: Path
+    saved_path: Path  # jobs you saved from LinkedIn with the "Send to CV Matcher" button
     # Pipeline knobs
     shortlist_size: int
     min_relevant: int
@@ -89,6 +90,7 @@ def load_settings() -> Settings:
         cache_dir=_path("CACHE_DIR", BACKEND_DIR / ".cache"),
         cache_enabled=_bool("CACHE_ENABLED", True),
         snapshot_path=_path("SNAPSHOT_PATH", DATA_DIR / "demo_jobs.json"),
+        saved_path=_path("SAVED_PATH", DATA_DIR / "saved_postings.json"),
         shortlist_size=max(3, _int("SHORTLIST_SIZE", 12)),
         min_relevant=max(1, _int("MIN_RELEVANT", 15)),
         max_refinements=max(0, _int("MAX_REFINEMENTS", 2)),

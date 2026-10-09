@@ -16,6 +16,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, Response, Streami
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from . import saved as saved_jobs
 from .config import BACKEND_DIR, DATA_DIR, settings
 from .cv_parser import CVError, extract_pdf_text
 from .graph import GRAPH
@@ -40,7 +41,7 @@ SAMPLES = {
 }
 MAX_UPLOAD = 5 * 1024 * 1024
 MAX_TEXT = 60_000
-SOURCES = {"demo", "companies", "keywords", "paste"}
+SOURCES = {"demo", "companies", "keywords", "paste", "linkedin"}
 
 
 @app.get("/api/health")
@@ -129,6 +130,8 @@ async def create_run(
         raise HTTPException(400, "List at least one company board, for example: stripe, notion, linear.")
     if source == "paste" and len(pasted.strip()) < 80:
         raise HTTPException(400, "Paste the full text of at least one job posting.")
+    if source == "linkedin" and not saved_jobs.list_saved():
+        raise HTTPException(400, "You have no saved LinkedIn jobs yet. Open a job on LinkedIn and click the Send to CV Matcher button.")
     options = {
         "source": source,
         "companies": companies[:2000],
@@ -178,6 +181,42 @@ async def run_events(run_id: str, request: Request, after: int = 0):
     return StreamingResponse(
         stream(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"}
     )
+
+
+# --- Jobs saved from LinkedIn ---------------------------------------------------------------
+# The "Send to CV Matcher" bookmark opens this app with the posting in the address (after #), and
+# the app posts it here from its own page. LinkedIn is never contacted by this server.
+
+
+def _saved_list() -> dict:
+    items = saved_jobs.list_saved()
+    return {"count": len(items), "jobs": [saved_jobs.summary(it) for it in items]}
+
+
+@app.get("/api/saved")
+def list_saved() -> dict:
+    return _saved_list()
+
+
+@app.post("/api/saved")
+def save_job(capture: saved_jobs.Capture) -> dict:
+    try:
+        job, created, count = saved_jobs.add(capture)
+    except saved_jobs.CaptureError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    return {"created": created, "count": count, "job": saved_jobs.summary(job.model_dump())}
+
+
+@app.delete("/api/saved/{job_id}")
+def delete_saved(job_id: str) -> dict:
+    saved_jobs.remove(job_id)
+    return _saved_list()
+
+
+@app.delete("/api/saved")
+def clear_saved() -> dict:
+    saved_jobs.clear()
+    return _saved_list()
 
 
 class Selection(BaseModel):

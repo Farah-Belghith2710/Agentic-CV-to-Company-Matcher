@@ -50,6 +50,8 @@ function doneNote(p: Phase, view: RunView | null, stages: Record<string, StageSt
     }
     case "search": {
       if (!view.pool_size) return null;
+      if (view.options.source === "linkedin") return `Loaded the ${view.pool_size} job${view.pool_size > 1 ? "s" : ""} you saved from LinkedIn.`;
+      if (view.options.source === "paste") return `Read the ${view.pool_size} posting${view.pool_size > 1 ? "s" : ""} you pasted.`;
       const widened = stages.refine_queries?.starts ?? 0;
       return `Kept ${view.relevant_count} relevant postings out of ${view.pool_size}${widened ? `, after widening the search ${times(widened)}` : ""}.`;
     }
@@ -116,7 +118,11 @@ export function PipelineRail({
               {s === "failed" ? <PenMark verdict="missing" size={20} label={false} /> : <PenBox checked={s === "done"} draw />}
               <div>
                 <p className="check-text">
-                  {p.todo}
+                  {p.key === "search" && view?.options.source === "linkedin"
+                    ? "Load the jobs you saved from LinkedIn"
+                    : p.key === "search" && view?.options.source === "paste"
+                      ? "Read the postings you pasted"
+                      : p.todo}
                   <span className="visually-hidden">{s === "done" ? " (done)" : s === "active" ? " (working on it)" : s === "failed" ? " (stopped)" : ""}</span>
                 </p>
                 {note && <p className="check-note">{note}</p>}

@@ -79,7 +79,11 @@ export function ProfileSummary({ view }: { view: RunView }) {
         <div>
           <dt>Searched for</dt>
           <dd>
-            {view.queries.length ? view.queries.join(", ") : "Your pasted postings"}
+            {view.queries.length
+              ? view.queries.join(", ")
+              : view.options.source === "linkedin"
+                ? "Nothing: you picked these jobs on LinkedIn"
+                : "Nothing: you pasted the postings"}
             {rounds > 1 && (
               <span className="muted">
                 {" "}

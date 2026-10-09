@@ -1,5 +1,6 @@
-import { useState, type ReactNode } from "react";
-import type { Health, Source } from "../types";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
+import type { Health, SavedJob, Source } from "../types";
+import { LinkedInSaved } from "./LinkedInSaved";
 
 export interface StartInput {
   file: File | null;
@@ -17,8 +18,13 @@ type CvMode = "upload" | "paste";
 
 const MIN_PASTE = 200;
 
-const SOURCES: { id: Source; title: string; detail: (h: Health | null) => string }[] = [
-  { id: "demo", title: "Saved postings", detail: (h) => `${h?.snapshot.jobs ?? 40} postings that come with the app; works offline` },
+const SOURCES: { id: Source; title: string; detail: (h: Health | null, saved: number) => string }[] = [
+  {
+    id: "linkedin",
+    title: "Jobs you saved from LinkedIn",
+    detail: (_h, n) => (n ? `${n} saved with the Send to CV Matcher button` : "Save them one by one while you browse LinkedIn"),
+  },
+  { id: "demo", title: "Example postings", detail: (h) => `${h?.snapshot.jobs ?? 40} made-up postings that come with the app; works offline` },
   { id: "companies", title: "Company career pages", detail: () => "Live openings from companies that use Greenhouse, Lever or Ashby" },
   { id: "keywords", title: "Remote job boards", detail: () => "Live openings from Remotive and Arbeitnow" },
   { id: "paste", title: "Postings you paste", detail: () => "Copied from LinkedIn, a company site, anywhere" },
@@ -35,7 +41,24 @@ function Step({ no, title, children }: { no: number; title: string; children: Re
   );
 }
 
-export function SetupForm({ health, busy, onStart }: { health: Health | null; busy: boolean; onStart: (input: StartInput) => void }) {
+export function SetupForm({
+  health,
+  busy,
+  onStart,
+  saved,
+  onRemoveSaved,
+  onClearSaved,
+  linkedInNudge,
+}: {
+  health: Health | null;
+  busy: boolean;
+  onStart: (input: StartInput) => void;
+  saved: SavedJob[];
+  onRemoveSaved: (id: string) => void;
+  onClearSaved: () => void;
+  /** Goes up when a job arrives from LinkedIn: the form then switches to that source. */
+  linkedInNudge: number;
+}) {
   const [cvMode, setCvMode] = useState<CvMode>("upload");
   const [file, setFile] = useState<File | null>(null);
   const [cvText, setCvText] = useState("");
@@ -48,10 +71,18 @@ export function SetupForm({ health, busy, onStart }: { health: Health | null; bu
   const [useLlm, setUseLlm] = useState(true);
   const [dragging, setDragging] = useState(false);
 
+  useEffect(() => {
+    if (linkedInNudge > 0) setSource("linkedin");
+  }, [linkedInNudge]);
+
   const pastedChars = cvText.trim().length;
   const cvReady = (cvMode === "upload" && !!file) || (cvMode === "paste" && pastedChars > MIN_PASTE);
   const jobsReady =
-    source === "demo" || source === "keywords" || (source === "companies" && !!companies.trim()) || (source === "paste" && pasted.trim().length > 80);
+    source === "demo" ||
+    source === "keywords" ||
+    (source === "linkedin" && saved.length > 0) ||
+    (source === "companies" && !!companies.trim()) ||
+    (source === "paste" && pasted.trim().length > 80);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,13 +164,16 @@ export function SetupForm({ health, busy, onStart }: { health: Health | null; bu
       <Step no={2} title="Where to look">
         <div className="sources" role="radiogroup" aria-label="Where to look for jobs">
           {SOURCES.map((s) => (
-            <label key={s.id} className={`source${source === s.id ? " is-picked" : ""}`}>
-              <input type="radio" name="source" value={s.id} checked={source === s.id} onChange={() => setSource(s.id)} />
-              <span>
-                <span className="source-title">{s.title}</span>
-                <span className="source-detail">{s.detail(health)}</span>
-              </span>
-            </label>
+            <Fragment key={s.id}>
+              <label className={`source${source === s.id ? " is-picked" : ""}`}>
+                <input type="radio" name="source" value={s.id} checked={source === s.id} onChange={() => setSource(s.id)} />
+                <span>
+                  <span className="source-title">{s.title}</span>
+                  <span className="source-detail">{s.detail(health, saved.length)}</span>
+                </span>
+              </label>
+              {s.id === "linkedin" && source === "linkedin" && <LinkedInSaved saved={saved} onRemove={onRemoveSaved} onClear={onClearSaved} />}
+            </Fragment>
           ))}
         </div>
         {source === "companies" && (
@@ -166,7 +200,7 @@ export function SetupForm({ health, busy, onStart }: { health: Health | null; bu
               onChange={(e) => setPasted(e.target.value)}
               placeholder={"Title: Reliability Engineer\nCompany: ...\n\nRequirements\n- FMEA\n---\nNext posting..."}
             />
-            <span className="hint">Put a line with only --- between two postings.</span>
+            <span className="hint">Put a line with only --- between two postings. A whole LinkedIn job page copied with Ctrl+A works too.</span>
           </label>
         )}
       </Step>

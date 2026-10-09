@@ -1,6 +1,18 @@
 export type Verdict = "met" | "partial" | "missing";
 export type RunStatus = "queued" | "running" | "awaiting_selection" | "done" | "error";
-export type Source = "demo" | "companies" | "keywords" | "paste";
+export type Source = "demo" | "companies" | "keywords" | "paste" | "linkedin";
+
+/** A job you saved from LinkedIn with the Send to CV Matcher button. */
+export interface SavedJob {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  workplace: string;
+  url: string;
+  internship: boolean;
+  saved_at: string | null;
+}
 
 export interface Health {
   ok: boolean;

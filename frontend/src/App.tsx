@@ -7,14 +7,22 @@ import { LearnNext } from "./components/LearnNext";
 import { Logo } from "./components/marks";
 import { PipelineRail, type StageState } from "./components/PipelineRail";
 import { ProfileSummary } from "./components/ProfileSummary";
+import { CHANNEL, SaveFromLinkedIn } from "./components/SaveFromLinkedIn";
 import { SetupForm, type StartInput } from "./components/SetupForm";
 import { TailorPanel } from "./components/TailorPanel";
-import type { Health, RunEvent, RunStatus, RunView } from "./types";
+import { captureFromHash } from "./bookmarklet";
+import type { Health, RunEvent, RunStatus, RunView, SavedJob } from "./types";
 import { useNarrow } from "./useNarrow";
 
 const REFRESH_ON_DONE = new Set(["parse_cv", "triage", "score_rank", "verify", "report", "pick_jobs"]);
 
+/** The Send to CV Matcher button opens the app with "#save=..." in a small window: that window only saves the job. */
 export default function App() {
+  const [saveRequest] = useState(() => (window.location.hash.startsWith("#save=") ? { capture: captureFromHash(window.location.hash) } : null));
+  return saveRequest ? <SaveFromLinkedIn capture={saveRequest.capture} /> : <Workbench />;
+}
+
+function Workbench() {
   const [health, setHealth] = useState<Health | null>(null);
   const [backendDown, setBackendDown] = useState(false);
   const [runId, setRunId] = useState<string | null>(null);
@@ -29,6 +37,8 @@ export default function App() {
   const closeStream = useRef<() => void>(() => {});
   const pollTimer = useRef<number | null>(null);
   const sheetRef = useRef<HTMLElement>(null);
+  const [saved, setSaved] = useState<SavedJob[]>([]);
+  const [linkedInNudge, setLinkedInNudge] = useState(0);
 
   useEffect(() => {
     api
@@ -37,6 +47,38 @@ export default function App() {
       .catch(() => setBackendDown(true));
     return () => closeStream.current();
   }, []);
+
+  // Jobs saved from LinkedIn: load them, and follow along when the button saves a new one.
+  const loadSaved = useCallback((nudge: boolean) => {
+    api.saved
+      .list()
+      .then((res) => {
+        setSaved(res.jobs);
+        if (nudge && res.count > 0) setLinkedInNudge((n) => n + 1);
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    window.name = "cv-matcher"; // the save window's "Open CV Matcher" link comes back to this tab
+    loadSaved(true);
+    let ch: BroadcastChannel | null = null;
+    try {
+      ch = new BroadcastChannel(CHANNEL);
+      ch.onmessage = (e) => e.data?.type === "saved" && loadSaved(true);
+    } catch {
+      /* no BroadcastChannel: the visibility check below still catches up */
+    }
+    const onVisible = () => document.visibilityState === "visible" && loadSaved(false);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      ch?.close();
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [loadSaved]);
+
+  const removeSaved = (id: string) => api.saved.remove(id).then((res) => setSaved(res.jobs)).catch((e: Error) => setError(e.message));
+  const clearSaved = () => api.saved.clear().then((res) => setSaved(res.jobs)).catch((e: Error) => setError(e.message));
 
   const refresh = useCallback((id: string) => {
     api
@@ -144,7 +186,9 @@ export default function App() {
         </p>
         <p className="topbar-status">
           {health
-            ? `${health.llm.configured ? `Using ${health.llm.model}` : "Offline mode"}, ${health.snapshot.jobs} saved postings`
+            ? `${health.llm.configured ? `Using ${health.llm.model}` : "Offline mode"}${
+                saved.length ? `, ${saved.length} job${saved.length > 1 ? "s" : ""} saved from LinkedIn` : ""
+              }`
             : backendDown
               ? "Server not running"
               : "Connecting..."}
@@ -153,7 +197,15 @@ export default function App() {
 
       <div className="workspace">
         <aside className="desk" aria-label="Your search">
-          <SetupForm health={health} busy={busy} onStart={start} />
+          <SetupForm
+            health={health}
+            busy={busy}
+            onStart={start}
+            saved={saved}
+            onRemoveSaved={removeSaved}
+            onClearSaved={clearSaved}
+            linkedInNudge={linkedInNudge}
+          />
         </aside>
 
         <main className="sheet" ref={sheetRef} aria-live="polite">

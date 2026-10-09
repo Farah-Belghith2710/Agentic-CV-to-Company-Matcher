@@ -613,6 +613,184 @@ textarea.input {
   text-align: center;
 }
 
+/* ---------- Jobs saved from LinkedIn ---------- */
+.linkedin {
+  margin: 0 0 6px 26px;
+}
+
+.saved-list {
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--desk-line);
+}
+
+.saved-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--desk-line);
+}
+
+.saved-text {
+  display: grid;
+  min-width: 0;
+}
+
+.saved-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.saved-meta {
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+.saved-list .text-button,
+.saved-foot .text-button {
+  font-size: 14px;
+}
+
+.saved-foot {
+  margin: 8px 0 0;
+  text-align: right;
+}
+
+.howto {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 14.5px;
+}
+
+.howto li::marker {
+  font-family: var(--serif);
+  font-weight: 650;
+  color: var(--pen);
+}
+
+.howto .hint {
+  display: block;
+  margin-top: 4px;
+}
+
+.howto-more {
+  margin-top: 10px;
+}
+
+.howto-more summary {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--pen);
+  cursor: pointer;
+}
+
+/* Looks like a bookmark you can pick up. */
+.bookmarklet {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 5px 12px 5px 8px;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  background: var(--paper);
+  box-shadow: 0 2px 0 var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: grab;
+}
+
+.bookmarklet:active {
+  cursor: grabbing;
+}
+
+.bookmarklet .logo {
+  width: 20px;
+  height: 20px;
+}
+
+.bookmarklet-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--mark-partial);
+}
+
+/* The small window the button opens. */
+.save-view {
+  min-height: 100vh;
+  padding: 22px 26px;
+  background: var(--paper);
+}
+
+.save-view .wordmark {
+  margin-bottom: 20px;
+  font-size: 19px;
+}
+
+.save-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.save-status.is-saved {
+  color: var(--mark-met);
+}
+
+.save-status.is-error {
+  color: var(--mark-missing);
+}
+
+.save-title {
+  margin: 10px 0 2px;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.save-meta {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.save-count,
+.save-error {
+  max-width: 46ch;
+  margin: 14px 0 0;
+}
+
+.save-lede {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.save-name .field {
+  color: var(--ink);
+}
+
+.save-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+  margin: 20px 0 0;
+  font-size: 15px;
+}
+
 /* ---------- The agent's checklist ---------- */
 .checklist .section-title {
   margin-bottom: 14px;

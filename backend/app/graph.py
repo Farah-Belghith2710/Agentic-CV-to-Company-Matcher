@@ -46,7 +46,12 @@ from .schemas import (
 )
 from .scoring import Preferences, coverage, flags_for, learn_next
 from .skills import canonical, find_languages
+from . import saved as saved_jobs
 from .sources import SourceError, fetch_arbeitnow, fetch_board, fetch_remotive, load_snapshot, parse_pasted
+
+# Postings you picked yourself (pasted, or saved from LinkedIn): no search, no triage, all analysed.
+USER_SOURCES = {"paste", "linkedin"}
+USER_SOURCE_CAP = 30
 from .tailor import heuristic_draft, llm_draft, pick_bullets, verify as verify_bullet
 from .text import truncate
 
@@ -241,8 +246,11 @@ If the candidate's CV is in French or they live in a French-speaking country, in
 def plan_queries(state: MatchState, config: RunnableConfig, log: NodeLog):
     ctx = _ctx(config)
     opts = state["options"]
-    if opts["source"] == "paste":
-        log("You pasted the posting(s) yourself, so there is nothing to search for.")
+    if opts["source"] in USER_SOURCES:
+        if opts["source"] == "linkedin":
+            log("You picked these jobs on LinkedIn yourself, so there is nothing to search for.")
+        else:
+            log("You pasted the posting(s) yourself, so there is nothing to search for.")
         return {"queries": [], "query_log": [], "refine_round": 0}
     profile = _profile(state)
     extra = [k.strip() for k in opts.get("keywords", "").split(",") if k.strip()]
@@ -288,6 +296,10 @@ def fetch_jobs(state: MatchState, config: RunnableConfig, log: NodeLog):
         jobs = parse_pasted(opts.get("pasted", ""))
         pool = {j.id: j.model_dump() for j in jobs}
         log(f"Read {len(jobs)} pasted posting{'s' if len(jobs) != 1 else ''}.")
+    elif source == "linkedin":
+        jobs = saved_jobs.load_jobs()[:USER_SOURCE_CAP]
+        pool = {j.id: j.model_dump() for j in jobs}
+        log(f"Loaded {len(jobs)} job{'s' if len(jobs) != 1 else ''} you saved from LinkedIn.")
     elif source == "companies":
         if not pool:
             specs = [c.strip() for c in opts.get("companies", "").replace("\n", ",").split(",") if c.strip()][:15]
@@ -325,6 +337,8 @@ def fetch_jobs(state: MatchState, config: RunnableConfig, log: NodeLog):
             except SourceError as exc:
                 log(f"Arbeitnow: {exc}", "warn")
                 warnings.append(str(exc))
+    if not pool and source == "linkedin":
+        raise PipelineError("You have no saved LinkedIn jobs. Open a job on LinkedIn and click the Send to CV Matcher button first.")
     if not pool:
         raise PipelineError(
             "No job postings could be loaded. Check the company names or your internet connection, or try the demo snapshot or a pasted posting."
@@ -340,10 +354,15 @@ def _min_relevant(pool_size: int) -> int:
 @node("triage")
 def triage(state: MatchState, config: RunnableConfig, log: NodeLog):
     jobs = [Job.model_validate(j) for j in state["pool"]]
-    if state["options"]["source"] == "paste":
+    if state["options"]["source"] in USER_SOURCES:
         ids = [j.id for j in jobs]
-        log(f"All {len(ids)} pasted posting(s) go straight to analysis.")
-        return {"relevant": ids, "triage_reasons": {i: "pasted by you" for i in ids}, "rejected_titles": []}
+        if state["options"]["source"] == "linkedin":
+            log(f"All {len(ids)} job(s) you saved from LinkedIn go straight to analysis.")
+            reason = "saved by you from LinkedIn"
+        else:
+            log(f"All {len(ids)} pasted posting(s) go straight to analysis.")
+            reason = "pasted by you"
+        return {"relevant": ids, "triage_reasons": {i: reason for i in ids}, "rejected_titles": []}
     res = triage_jobs(jobs, state.get("queries", []), _profile(state))
     by_title = sum(1 for r in res.reasons.values() if r.startswith("title"))
     need = _min_relevant(len(jobs))
@@ -359,7 +378,7 @@ def triage(state: MatchState, config: RunnableConfig, log: NodeLog):
 
 
 def route_after_triage(state: MatchState) -> str:
-    if state["options"]["source"] == "paste":
+    if state["options"]["source"] in USER_SOURCES:
         return "shortlist"
     need = _min_relevant(len(state.get("pool", [])))
     if len(state.get("relevant", [])) < need and state.get("refine_round", 0) < settings.max_refinements:
@@ -424,7 +443,10 @@ def shortlist(state: MatchState, config: RunnableConfig, log: NodeLog):
     if not rel:
         log("No posting passed triage; ranking the whole pool instead.", "warn")
         rel = list(jobs.values())
-    ranked = rank_shortlist(rel, _profile(state), _units(state), settings.shortlist_size, log=log)
+    size = settings.shortlist_size
+    if state["options"]["source"] in USER_SOURCES:
+        size = max(size, min(len(rel), USER_SOURCE_CAP))  # you chose these: analyse every one
+    ranked = rank_shortlist(rel, _profile(state), _units(state), size, log=log)
     log(
         f"Shortlisted {len(ranked)} of {len(rel)} with BM25 + semantic line matching (reciprocal rank fusion). "
         f"Similarity: {similarity_status()}."

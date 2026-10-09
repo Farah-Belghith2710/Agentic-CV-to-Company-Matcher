@@ -9,6 +9,7 @@ from pathlib import Path
 from ..config import settings
 from ..schemas import Job
 from ..text import clean_text
+from .linkedin import looks_like_linkedin, parse_linkedin_text
 
 
 def load_snapshot(path: Path | None = None) -> list[Job]:
@@ -27,7 +28,8 @@ def parse_pasted(text: str) -> list[Job]:
     """One or more postings pasted by the user, separated by a line containing only '---'.
 
     Optional first lines 'Title: ...', 'Company: ...', 'Location: ...', 'URL: ...' are picked up;
-    otherwise the first line is used as the title.
+    otherwise the first line is used as the title. A whole LinkedIn job page copied with Ctrl+A is
+    recognised: its menus and buttons are dropped and the title, company and location are read from it.
     """
     blocks = [b.strip() for b in re.split(r"\n\s*-{3,}\s*\n", clean_text(text)) if b.strip()]
     jobs = []
@@ -46,6 +48,15 @@ def parse_pasted(text: str) -> list[Job]:
         loc = meta.get("location", "")
         low = f"{loc} {body[:600]}".lower()
         workplace = "remote" if ("remote" in low or "télétravail" in low) else ("hybrid" if "hybrid" in low else "unknown")
+        if looks_like_linkedin(block):
+            li = parse_linkedin_text(block)
+            if len(li.description) >= 80:
+                body = li.description
+                title = meta.get("title") or li.title[:120] or title
+                if li.company and "company" not in meta:
+                    meta["company"] = li.company
+                loc = meta.get("location") or li.location
+                workplace = li.workplace if li.workplace != "unknown" else workplace
         digest = hashlib.sha1(block.encode("utf-8")).hexdigest()[:10]
         jobs.append(
             Job(
